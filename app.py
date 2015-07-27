@@ -2,8 +2,8 @@
 
 import json
 from flask import Flask, url_for, jsonify, request, Response, send_file, send_from_directory
-from giphy_api import GiphyApi
-from pipeline import Pipeline
+from core.giphy_api import GiphyApi
+from core.pipeline import Pipeline
 
 app = Flask(__name__,static_url_path='/static')
 giphy = GiphyApi()
@@ -65,4 +65,4 @@ def pipeline_init():
     return '',200
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0')
