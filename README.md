@@ -1,0 +1,21 @@
+#PIPEVIS
+
+
+Example pipeline-data:
+```json
+{"title":"","description":"",
+"stages":[
+{"title":"Package","order":0, "tasks":
+[ {"title":"Compile source","order":0},{"title":"Unit testing","order":1},{"title":"Package War","order":2},{"title":"Build Docker Base Image","order":3}] },
+{"title":"Deploy Dev","order":1, "tasks":
+[ {"title":"Task B","order":1},{"title":"Task A","order":0},{"title":"Task B","order":2},{"title":"Task A","order":3} ] },
+{"title":"Deploy QA","order":2, "tasks":
+[ {"title":"Task B","order":1},{"title":"Task A","order":0},{"title":"Task B","order":2},{"title":"Task A","order":3} ] }
+]
+}
+```
+
+Example notification-data:
+```json
+{"message":"This is a notification!","url":"http://to.some.were"}
+```
