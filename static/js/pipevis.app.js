@@ -15,7 +15,7 @@ app.controller('pipelineCtrl', function($scope, $http, $interval) {
   $interval(function() {
   $http.get("pipeline/get").success(function(data, status, headers, config) {
     $scope.pipeline = data;
-
+    $scope.pipeline.progress = Math.ceil($scope.pipeline.progress)
 
 
   });
