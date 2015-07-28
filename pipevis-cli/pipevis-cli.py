@@ -3,19 +3,19 @@
 import errno, sys, json, urllib2
 
 if not len(sys.argv) > 1:
-    print "Requires atleast one argument. [arg] [url]"
+    print ("Requires atleast one argument. [arg] [url]")
     sys.exit(errno.EPERM)
 
 if sys.argv[1] == "progress":
     if not len(sys.argv) != 2:
-        print "progress [url]"
+        print ("progress [url]")
         sys.exit(errno.EPERM)
 
     print urllib2.urlopen(sys.argv[2] + "/pipeline/progress").read()
 
 if sys.argv[1] == "fail":
     if not len(sys.argv) != 2:
-        print "fail [url]"
+        print ("fail [url]")
         sys.exit(errno.EPERM)
 
     print urllib2.urlopen(sys.argv[2] + "/pipeline/fail").read()
@@ -23,7 +23,7 @@ if sys.argv[1] == "fail":
 
 elif sys.argv[1] == "init":
     if not len(sys.argv) != 5:
-        print "init [json-file] [title] [description] [url]"
+        print ("init [json-file] [title] [description] [url]")
         sys.exit(errno.EPERM)
 
     with open(sys.argv[2]) as data_file:
