@@ -13,12 +13,33 @@ if sys.argv[1] == "progress":
 
     print urllib2.urlopen(sys.argv[2] + "/pipeline/progress").read()
 
-if sys.argv[1] == "fail":
+elif sys.argv[1] == "fail":
     if not len(sys.argv) != 2:
         print ("fail [url]")
         sys.exit(errno.EPERM)
 
     print urllib2.urlopen(sys.argv[2] + "/pipeline/fail").read()
+
+
+elif sys.argv[1] == "notify":
+
+    if not (len(sys.argv) == 5 or len(sys.argv) == 4):
+        print ("notify [message] [artifact-url] [url]")
+        print ("notify [message] [url]")
+        sys.exit(errno.EPERM)
+
+    data = {}
+
+    data['message'] = sys.argv[2]
+    if len(sys.argv) == 5:
+        data['url'] = sys.argv[3]
+        req = urllib2.Request(sys.argv[4] + "/pipeline/notify")
+    else:
+        req = urllib2.Request(sys.argv[3] + "/pipeline/notify")
+
+    req.add_header('Content-Type', 'application/json')
+
+    print urllib2.urlopen(req, json.dumps(data))
 
 
 elif sys.argv[1] == "init":
