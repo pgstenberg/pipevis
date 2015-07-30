@@ -39,7 +39,8 @@ class Pipeline:
         return sorted(data, key=itemgetter(order_by))
 
     def create_notification(self, notification_data):
-        notification_data['order'] = len(self.data['notifications']) + 1
+        notification_data['order'] = len(self.data['notifications']) + 1    
+
         self.data['notifications'].append(notification_data)
 
     def fail(self):

@@ -1,11 +1,13 @@
 .list-icon
 {
   float: right;
+  vertical-align: middle;
 }
 
 .pipevis_container
 {
-  margin-top: 100px;
+  margin-top: 25px;
+  margin-bottom: 25px;
 }
 
 .list-success
@@ -42,27 +44,6 @@
 .pipeline_state h1.success
 {
   color: green;
-}
-.pipeline_notification
-{
-  padding: 15px;
-  color: grey;
-  font-size: 12px;
-  border-bottom:1px dotted #eee;
-}
-.pipeline_notification a:hover
-{
-  color: black;
-  text-decoration: none;
-}
-.pipeline_notification a
-{
-  color: grey;
-  text-decoration: none;
-}
-.pipeline_notification span.icon
-{
-  float:right;
 }
 
 .pipeline_image

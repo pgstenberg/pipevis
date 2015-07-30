@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 
 <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -49,7 +49,7 @@
 
                       <li class="list-group-item" ng-repeat="task in stage.tasks | orderBy: 'order'">
                         <ul class="list-inline">
-                          <li>{{ task.title }}</li>
+                          {{ task.title }}
 
                           <li ng-if="task.state == 'success'" class="fa fa-check list-icon list-success"/>
                           <li ng-click="bool=true" ng-if="task.state == 'working'" class="fa fa-cog fa-spin list-icon"/>
@@ -79,15 +79,13 @@
       </div>
 
       <div class="col-lg-4">
-        <div class="row">
+        <div class="row" ng-if="pipeline.image">
           <div class="pipeline_image">
-            <img src="{{ pipeline.image }}"/>
+            <img ng-src="{{ pipeline.image }}"/>
           </div>
         </div>
         <div class="row">
-          <div class="pipeline_notification" ng-repeat="notification in pipeline.notifications | orderBy:'-order'">
-            <a href="{{ notification.url }}" ng-if="notification.url" target="_blank"><span>{{ notification.message }}</span><span class="fa fa-globe icon"/></a>
-            <span ng-if="!notification.url">{{ notification.message }}</span>
+          <div ng-repeat="notification in pipeline.notifications | orderBy:'-order'" notification="notification">
           </div>
         </div>
       </div>
