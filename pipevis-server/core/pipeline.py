@@ -10,7 +10,7 @@ class Pipeline:
         self.data = pipeline_data
         self.data['state'] = "working"
         self.data['notifications'] = []
-        self.data['image'] = self.giphy.randomize_image("excited")
+        self.data['image'] = self.giphy.randomize_image("working")
 
         stageiterator = iter(self.order_data(self.data['stages'],"order"))
         first_stage = next(stageiterator)
@@ -39,13 +39,13 @@ class Pipeline:
         return sorted(data, key=itemgetter(order_by))
 
     def create_notification(self, notification_data):
-        notification_data['order'] = len(self.data['notifications']) + 1    
+        notification_data['order'] = len(self.data['notifications']) + 1
 
         self.data['notifications'].append(notification_data)
 
     def fail(self):
         self.data['state'] = "failed"
-        self.data['image'] = self.giphy.randomize_image("crying")
+        self.data['image'] = self.giphy.randomize_image("fail")
         for stage in self.data['stages']:
             if stage['state'] != "success":
                 stage['state'] = "failed"
@@ -85,5 +85,5 @@ class Pipeline:
                         self.order_data(next_stage['tasks'],"order")[0]['state'] = "working"
                     else:
                         self.data['state'] = "success"
-                        self.data['image'] = self.giphy.randomize_image("dancing")
+                        self.data['image'] = self.giphy.randomize_image("success")
                     break

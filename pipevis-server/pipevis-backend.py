@@ -6,7 +6,13 @@ from core.giphy_api import GiphyApi
 from core.pipeline import Pipeline
 
 app = Flask(__name__,static_url_path='/static')
-giphy = GiphyApi()
+giphy = GiphyApi(
+{
+"success":["win","dance","success","epic"],
+"fail":["fail","failure","wrekt","crying"],
+"working":["working","excited"]
+}
+)
 pipeline = Pipeline(giphy)
 
 @app.route('/')

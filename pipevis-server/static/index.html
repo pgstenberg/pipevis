@@ -15,7 +15,14 @@
 
 <body>
 
-<div id="test" class="container pipevis_container" ng-app="pipevis" ng-controller="pipelineCtrl">
+<div class="pipevis_container" ng-app="pipevis" ng-controller="pipelineCtrl">
+
+
+    <div class="pipeline_section">
+      <img ng-src="{{ pipeline.image }}"/>
+    </div>
+
+    <div class="container">
 
   <div class="row">
       <div class="col-lg-8">
@@ -79,11 +86,7 @@
       </div>
 
       <div class="col-lg-4">
-        <div class="row" ng-if="pipeline.image">
-          <div class="pipeline_image">
-            <img ng-src="{{ pipeline.image }}"/>
-          </div>
-        </div>
+
         <div class="row">
           <div ng-repeat="notification in pipeline.notifications | orderBy:'-order'" notification="notification">
           </div>
@@ -92,10 +95,10 @@
 
   </div>
 
-  <footer class="footer pipevis-footer">
-        <img src="static/images/logo_giphy.png"/>
-  </footer>
+</div>
 
+<div class="pipeline_section pipevis_footer">
+  <img src="static/images/logo_giphy.png"/>
 </div>
 
 </body>
