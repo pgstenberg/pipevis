@@ -11,10 +11,11 @@ import errno, sys, json, urllib2, click, os.path
 @click.option('--title', '-t')
 @click.option('--description', '-d')
 @click.option('--message', '-m')
+@click.option('--dir', default='')
 @click.option('--type', type=click.Choice(['INFO', 'ARTIFACT', 'WARNING']), default='INFO')
 @click.option('--link', '-l', multiple=True, type=(unicode, unicode, unicode))
 
-def main(file, title, description, message, type, link, command, url):
+def main(file, title, description, message, dir, type, link, command, url):
 
     if command == 'init':
         if os.path.isfile(file):
@@ -39,9 +40,9 @@ def main(file, title, description, message, type, link, command, url):
         pipeline_data = urllib2.urlopen(url + "/pipeline/get").read()
         pipevis_data = urllib2.urlopen(url).read()
 
-        with open("pipeline.json", 'w') as file_:
+        with open(dir + "pipeline.json", 'w') as file_:
             file_.write(pipeline_data)
-        with open("pipevis.html", 'w') as file_:
+        with open(dir + "pipevis.html", 'w') as file_:
             file_.write(pipevis_data)
 
         click.echo("pipeline was successfully archived")
