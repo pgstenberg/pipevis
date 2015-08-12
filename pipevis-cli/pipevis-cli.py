@@ -36,11 +36,7 @@ def main(file, title, description, message, type, link, command, url):
         click.echo("Pipeline set to failure!")
 
     if command == 'archive':
-        targets = {url + "/pipeline/get":"pipeline.json",
-                    url + "/pipevis.html":"pipevis.html",
-                    url + "/pipevis.style.css":"pipevis.style.css",
-                    url + "/pipevis.app.js":"pipevis.app.js",
-                    url + "/logo_giphy.png":"logo_giphy.png" }
+        targets = {url + "/pipeline/get":"pipeline.json", url + "/pipevis.html":"pipevis.html" }
         for target_url, target_file in targets.iteritems():
             target_data = urllib2.urlopen(target_url).read()
             with open(target_file, 'w') as file_:

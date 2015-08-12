@@ -10,8 +10,64 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
-<script src="pipevis.app.js"></script>
-<link rel="stylesheet" href="pipevis.style.css">
+<style>
+
+.list-icon
+{
+  float: right;
+  vertical-align: middle;
+}
+
+.pipevis_container
+{
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.list-success
+{
+  color: green;
+}
+.list-failed
+{
+  color: red;
+}
+
+.pipevis_footer
+{
+  padding-top: 35px;
+  padding-bottom: 35px;
+}
+
+.pipeline_state
+{
+  text-align: center;
+  text-transform: uppercase;
+  padding-bottom: 25px;
+}
+.pipeline_state h1.failed
+{
+  color: red;
+}
+.pipeline_state h1.working
+{
+  color: blue;
+}
+.pipeline_state h1.success
+{
+  color: green;
+}
+
+.pipeline_section
+{
+  width:100%;
+  text-align:center;
+  background-color: #eee;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+</style>
 
 <body>
 
@@ -98,8 +154,74 @@
 </div>
 
 <div class="pipeline_section pipevis_footer">
-  <img src="logo_giphy.png"/>
+  <img src="https://raw.githubusercontent.com/pgstenberg/pipevis/master/images/logo_giphy.png"/>
 </div>
+
+<script>
+
+var app = angular.module('pipevis', []);
+
+app.controller('pipelineCtrl', function($scope, $http, $interval, $sce) {
+
+  $scope.calc_col = function(num_stages){
+    if(12 / num_stages > 3){
+      return Math.ceil(12 / num_stages);
+    }else{
+      return 3;
+    }
+  }
+
+  var successCallback = function(data) {
+    $scope.pipeline = data;
+    $scope.pipeline.progress = Math.ceil($scope.pipeline.progress)
+  };
+
+
+  $http.get('pipeline.json').success(successCallback).error(function() {
+    $interval(function() { $http.get('/pipeline/get').success(successCallback); }, 1000);
+  });
+
+});
+
+
+app.directive('notification', function ($compile,$sce) {
+  return {
+    restrict: 'A',
+    replace: true,
+    link: function (scope, ele, attrs) {
+
+      scope.$watch(attrs.notification, function(notification) {
+
+        var alertBox = "<div class='alert alert-info' role='alert'>"
+
+        if(notification['type'] != undefined){
+          if(notification['type'] == 'WARNING'){
+            alertBox = "<div class='alert alert-danger' role='alert'>"
+          }else if(notification['type'] == 'ARTIFACT'){
+            alertBox = "<div class='alert alert-success' role='alert'>"
+          }
+        }
+
+        for (var linkKey in notification.links) {
+          notification.message = notification.message.replace("{{ " + linkKey + " }}", "<a href='" + notification.links[linkKey]['url'] + "' class='alert-link'>" + notification.links[linkKey]['text'] + "</a>");
+        }
+
+        var return_html = alertBox;
+        if(notification.title != undefined){
+          return_html = return_html + "<strong>" + notification.title + "</strong> ";
+        }
+        return_html = return_html + notification.message + "</div>";
+
+
+
+        ele.html(return_html);
+        $compile(ele.contents())(scope);
+      });
+    }
+  };
+});
+
+</script>
 
 </body>
 </html>
