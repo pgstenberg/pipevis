@@ -1,7 +1,7 @@
-{"title":"","description":"",
+{
 "stages":[
 {"title":"Package","order":0, "tasks":
-[ {"title":"Compile source, and some more text to get longer","order":0},{"title":"Unit testing","order":1},{"title":"Package War","order":2},{"title":"Build Docker Base Image","order":3}] },
+[ {"title":"Compile source","order":0},{"title":"Unit testing","order":1},{"title":"Package War","order":2},{"title":"Build Docker Base Image","order":3}] },
 
 {"title":"Deploy Dev","order":1, "tasks":
 [ {"title":"Task B","order":1},{"title":"Task A","order":0},{"title":"Task B","order":2},{"title":"Task A","order":3} ] },
