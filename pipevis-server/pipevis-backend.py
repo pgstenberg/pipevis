@@ -17,19 +17,11 @@ pipeline = Pipeline(giphy)
 
 @app.route('/')
 def api_root():
-    return app.send_static_file('index.html')
+    return app.send_static_file('pipevis.html')
 
-@app.route('/js/<path:path>')
-def send_js(path):
-    return send_from_directory('js', path)
-
-@app.route('/css/<path:path>')
-def send_css(path):
-    return send_from_directory('css', path)
-
-@app.route('/images/<path:path>')
-def send_image(path):
-    return send_from_directory('png', path)
+@app.route('/<path:path>')
+def static_file(path):
+    return app.send_static_file(path)
 
 @app.route('/pipeline/notify', methods=['POST'])
 def pipeline_notify():
